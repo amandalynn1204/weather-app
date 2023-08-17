@@ -43,8 +43,6 @@ function formatDate() {
 }
 
 function displayWeather(response) {
-  console.log(response);
-
   let cityElement = document.querySelector("#city");
   let tempElement = document.querySelector("#current-temp");
   let timeElement = document.querySelector("#time");
@@ -60,7 +58,20 @@ function displayWeather(response) {
   windDisplay.innerHTML = Math.round(response.data.wind.speed);
 }
 
-let apiKey = `9a7ca83bt1f54ebc3o8f9d804f5e2b0e`;
-let city = "cleveland";
-let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
-axios.get(apiUrl).then(displayWeather);
+function search(city) {
+  let apiKey = `9a7ca83bt1f54ebc3o8f9d804f5e2b0e`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayWeather);
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let searchInput = document.querySelector("#search-input");
+  search(searchInput.value);
+  searchInput.value = "";
+}
+
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", handleSubmit);
+
+search("cleveland");
