@@ -84,6 +84,13 @@ p a:active {
   transform: translateY(6px);
 }
 
+.current-weather-icon {
+  width: 75px;
+  position: relative;
+  bottom: 5px;
+  right: 5px;
+}
+
 .current-temp,
 .current-weather-info {
   text-align: right;

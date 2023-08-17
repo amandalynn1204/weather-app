@@ -48,7 +48,10 @@ function displayWeather(response) {
     return;
   }
 
+  console.log(response);
+
   let cityElement = document.querySelector("#city");
+  let weatherIconElement = document.querySelector("#current-weather-icon");
   let tempElement = document.querySelector("#current-temp");
   let timeElement = document.querySelector("#time");
   let dateElement = document.querySelector("#date");
@@ -56,6 +59,8 @@ function displayWeather(response) {
   let windDisplay = document.querySelector("#wind-speed");
 
   cityElement.innerHTML = response.data.city;
+  weatherIconElement.setAttribute("src", response.data.condition.icon_url);
+  weatherIconElement.setAttribute("alt", response.data.condition.icon);
   tempElement.innerHTML = Math.round(response.data.temperature.current);
   timeElement.innerHTML = formatTime();
   dateElement.innerHTML = formatDate();
