@@ -43,6 +43,11 @@ function formatDate() {
 }
 
 function displayWeather(response) {
+  if (response.data.city === undefined) {
+    alert("Sorry, we can't find that city! 😢");
+    return;
+  }
+
   let cityElement = document.querySelector("#city");
   let tempElement = document.querySelector("#current-temp");
   let timeElement = document.querySelector("#time");
@@ -61,6 +66,7 @@ function displayWeather(response) {
 function search(city) {
   let apiKey = `9a7ca83bt1f54ebc3o8f9d804f5e2b0e`;
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+
   axios.get(apiUrl).then(displayWeather);
 }
 
