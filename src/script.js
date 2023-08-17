@@ -116,7 +116,7 @@ axios.get(apiUrl).then(displayWeather);
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", searchCity);
 
-askForLocation();
+setTimeout(askForLocation, 2500);
 
 // switching temperature measurements
 function switchTempMeasurement() {
