@@ -25,7 +25,7 @@
         <div class="row">
           <div class="col">
             <input
-              type="text"
+              type="search"
               class="search-bar"
               placeholder="Enter city..."
               autocomplete="off"
@@ -47,21 +47,22 @@
           <div class="col">
             <h1 class="current-temp">
               ☀️<span id="current-temp"></span
-              ><a class="alt-temp-measurement" id="alt-temp">/°C</a>
+              ><span id="current-temp-unit">°F</span
+              ><a class="alt-temp-unit" id="alt-temp-unit">/°C</a>
             </h1>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <ul class="time-and-date">
-              <li id="time">Weekday 0:00 AM</li>
+              <li id="time"></li>
               <li id="date">Month Day, Year</li>
             </ul>
           </div>
           <div class="col">
             <ul class="current-weather-info">
               <li id="weather-description"></li>
-              <li id="wind-speed"></li>
+              <li>Wind: <span id="wind-speed"></span> mph</li>
             </ul>
           </div>
         </div>

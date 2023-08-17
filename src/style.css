@@ -93,7 +93,7 @@ p a:active {
   text-transform: capitalize;
 }
 
-.alt-temp-measurement {
+.alt-temp-unit {
   font-size: 22px;
   position: relative;
   top: -25px;
@@ -102,7 +102,7 @@ p a:active {
   transition: all 150ms ease-in-out;
 }
 
-.alt-temp-measurement:hover {
+.alt-temp-unit:hover {
   cursor: pointer;
   color: rgb(180, 180, 180);
 }
