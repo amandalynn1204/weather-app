@@ -48,8 +48,6 @@ function displayWeather(response) {
     return;
   }
 
-  console.log(response);
-
   let cityElement = document.querySelector("#city");
   let weatherIconElement = document.querySelector("#current-weather-icon");
   let tempElement = document.querySelector("#current-temp");
@@ -77,12 +75,29 @@ function search(city) {
 
 function handleSubmit(event) {
   event.preventDefault();
+
   let searchInput = document.querySelector("#search-input");
   search(searchInput.value);
   searchInput.value = "";
 }
 
+function searchCurrentLocation(position) {
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiKey = "9a7ca83bt1f54ebc3o8f9d804f5e2b0e";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayWeather);
+}
+
+function askForLocation(event) {
+  event.preventDefault();
+  navigator.geolocation.getCurrentPosition(searchCurrentLocation);
+}
+
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", handleSubmit);
+
+let locationButton = document.querySelector("#location-button");
+locationButton.addEventListener("click", askForLocation);
 
 search("cleveland");
