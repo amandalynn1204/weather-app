@@ -68,14 +68,18 @@ function displayWeather(response) {
 
 function search(city) {
   let apiKey = `9a7ca83bt1f54ebc3o8f9d804f5e2b0e`;
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  let currentTempUnit = document.querySelector("#current-temp-unit");
+  let unit = "imperial";
+  if (currentTempUnit.innerHTML === "°C") {
+    unit = "metric";
+  }
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${unit}`;
 
   axios.get(apiUrl).then(displayWeather);
 }
 
 function handleSubmit(event) {
   event.preventDefault();
-
   let searchInput = document.querySelector("#search-input");
   search(searchInput.value);
   searchInput.value = "";
@@ -85,7 +89,12 @@ function searchCurrentLocation(position) {
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiKey = "9a7ca83bt1f54ebc3o8f9d804f5e2b0e";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=imperial`;
+  let currentTempUnit = document.querySelector("#current-temp-unit");
+  let unit = "imperial";
+  if (currentTempUnit.innerHTML === "°C") {
+    unit = "metric";
+  }
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
   axios.get(apiUrl).then(displayWeather);
 }
 
@@ -94,10 +103,28 @@ function askForLocation(event) {
   navigator.geolocation.getCurrentPosition(searchCurrentLocation);
 }
 
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", handleSubmit);
+function convertTemp() {
+  let currentTemp = document.querySelector("#current-temp");
+  let currentUnit = document.querySelector("#current-temp-unit");
+  let altUnit = document.querySelector("#alt-temp-unit");
 
+  if (currentUnit.innerHTML === "°F") {
+    currentTemp.innerHTML = Math.round(((currentTemp.innerHTML - 32) * 5) / 9);
+    currentUnit.innerHTML = "°C";
+    altUnit.innerHTML = "/°F";
+  } else {
+    currentTemp.innerHTML = Math.round((currentTemp.innerHTML * 9) / 5 + 32);
+    currentUnit.innerHTML = "°F";
+    altUnit.innerHTML = "/°C";
+  }
+}
+
+let searchForm = document.querySelector("#search-form");
 let locationButton = document.querySelector("#location-button");
+let altTempButton = document.querySelector("#alt-temp-unit");
+
+searchForm.addEventListener("submit", handleSubmit);
 locationButton.addEventListener("click", askForLocation);
+altTempButton.addEventListener("click", convertTemp);
 
 search("cleveland");
