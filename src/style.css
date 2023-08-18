@@ -87,7 +87,7 @@ p a:active {
 .location-button {
   display: inline;
   width: 70px;
-  padding: 12px 15px;
+  padding: 16px 15px 11px;
   border: none;
   border-radius: 35px;
   color: white;
