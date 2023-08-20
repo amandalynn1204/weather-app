@@ -148,14 +148,14 @@ p a:active {
   border-radius: 8px;
 }
 
-.forecast .forecast-days {
+.forecast .day {
   font-weight: 500;
 }
 
-.forecast .forecast-icons {
-  font-size: 40px;
+.forecast .icon {
+  width: 60px;
 }
 
-.forecast .forecast-temps .low {
+.forecast .temp-low {
   color: rgb(125, 125, 125);
 }
