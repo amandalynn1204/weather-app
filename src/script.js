@@ -1,5 +1,5 @@
-function formatTime() {
-  let now = new Date();
+function formatTime(timestamp) {
+  let now = new Date(timestamp);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   let day = days[now.getDay()];
   let hour = now.getHours();
@@ -19,8 +19,8 @@ function formatTime() {
   return `Last updated: ${day} ${hour}:${minutes} ${amOrPm}`;
 }
 
-function formatDate() {
-  let now = new Date();
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
   let months = [
     "Jan",
     "Feb",
@@ -60,8 +60,8 @@ function displayWeather(response) {
   weatherIconElement.setAttribute("src", response.data.condition.icon_url);
   weatherIconElement.setAttribute("alt", response.data.condition.icon);
   tempElement.innerHTML = Math.round(response.data.temperature.current);
-  timeElement.innerHTML = formatTime();
-  dateElement.innerHTML = formatDate();
+  timeElement.innerHTML = formatTime(response.data.time * 1000);
+  dateElement.innerHTML = formatDate(response.data.time * 1000);
   descriptionDisplay.innerHTML = response.data.condition.description;
   windDisplay.innerHTML = Math.round(response.data.wind.speed);
 }
