@@ -43,10 +43,15 @@ function formatDate(timestamp) {
 }
 
 function displayWeather(response) {
+  let searchInput = document.querySelector("#search-input");
   if (response.data.city === undefined) {
-    alert("Sorry, we can't find that city! 😢");
+    alert(
+      `Sorry, we can't find that city! 😢 Try https://www.google.com/search?q=weather+${searchInput.value}`
+    );
+    searchInput.value = "";
     return;
   }
+  searchInput.value = "";
 
   let cityElement = document.querySelector("#city");
   let weatherIconElement = document.querySelector("#current-weather-icon");
@@ -82,7 +87,6 @@ function handleSubmit(event) {
   event.preventDefault();
   let searchInput = document.querySelector("#search-input");
   search(searchInput.value);
-  searchInput.value = "";
 }
 
 function searchCurrentLocation(position) {
