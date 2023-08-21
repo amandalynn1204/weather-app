@@ -123,6 +123,30 @@ function convertTemp() {
   }
 }
 
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+          <div class="col-2">
+            <div class="day">${day}</div>
+            <img
+              class="icon"
+              src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+            />
+            <span class="temp-low">72°</span>
+            <span class="temp-high">85°</span>
+          </div>`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
 let searchForm = document.querySelector("#search-form");
 let locationButton = document.querySelector("#location-button");
 let altTempButton = document.querySelector("#alt-temp-unit");
@@ -132,3 +156,4 @@ locationButton.addEventListener("click", askForLocation);
 altTempButton.addEventListener("click", convertTemp);
 
 search("cleveland");
+displayForecast();
