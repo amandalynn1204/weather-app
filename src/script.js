@@ -42,6 +42,57 @@ function formatDate(timestamp) {
   return `${month} ${date}, ${year}`;
 }
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  let forecast = response.data.daily;
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
+          <div class="col-2">
+            <div class="day">${formatDay(forecastDay.time * 1000)}</div>
+            <img
+              class="icon"
+              src="${forecastDay.condition.icon_url}"
+            />
+            <span class="temp-low">
+              <span id="temp-low">${Math.round(
+                forecastDay.temperature.minimum
+              )}</span>°
+            </span>
+            <span class="temp-high">
+              <span id="temp-high">${Math.round(
+                forecastDay.temperature.maximum
+              )}</span>°
+            </span>
+          </div>`;
+    }
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+
+  forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coords) {
+  let lat = coords.latitude;
+  let lon = coords.longitude;
+  let apiKey = `9a7ca83bt1f54ebc3o8f9d804f5e2b0e`;
+  let unit = "imperial";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${lon}&lat=${lat}&key=${apiKey}&units=${unit}`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
 function displayWeather(response) {
   let searchInput = document.querySelector("#search-input");
   if (response.data.city === undefined) {
@@ -69,6 +120,8 @@ function displayWeather(response) {
   dateElement.innerHTML = formatDate(response.data.time * 1000);
   descriptionDisplay.innerHTML = response.data.condition.description;
   windDisplay.innerHTML = Math.round(response.data.wind.speed);
+
+  getForecast(response.data.coordinates);
 }
 
 function search(city) {
@@ -123,30 +176,6 @@ function convertTemp() {
   }
 }
 
-function displayForecast() {
-  let forecastElement = document.querySelector("#forecast");
-  let forecastHTML = `<div class="row">`;
-  let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
-          <div class="col-2">
-            <div class="day">${day}</div>
-            <img
-              class="icon"
-              src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
-            />
-            <span class="temp-low">72°</span>
-            <span class="temp-high">85°</span>
-          </div>`;
-  });
-
-  forecastHTML = forecastHTML + `</div>`;
-
-  forecastElement.innerHTML = forecastHTML;
-}
-
 let searchForm = document.querySelector("#search-form");
 let locationButton = document.querySelector("#location-button");
 let altTempButton = document.querySelector("#alt-temp-unit");
@@ -156,4 +185,3 @@ locationButton.addEventListener("click", askForLocation);
 altTempButton.addEventListener("click", convertTemp);
 
 search("cleveland");
-displayForecast();
