@@ -126,20 +126,6 @@ p a:active {
   text-transform: capitalize;
 }
 
-.alt-temp-unit {
-  font-size: 22px;
-  position: relative;
-  top: -25px;
-  text-decoration: none;
-  color: rgb(125, 125, 125);
-  transition: all 150ms ease-in-out;
-}
-
-.alt-temp-unit:hover {
-  cursor: pointer;
-  color: rgb(180, 180, 180);
-}
-
 .forecast {
   text-align: center;
   font-size: 20px;
